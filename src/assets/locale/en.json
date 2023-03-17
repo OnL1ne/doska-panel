@@ -1,0 +1,206 @@
+{
+  "panel": {
+    "category": {
+      "main_dashboard": "Dashboard",
+      "main_settings": "Settings"
+    },
+    "subcategory": {
+      "dashboard": "Dashboard",
+      "users_management": "User management",
+      "trainings_management": "Training management",
+      "companies_management": "Company management",
+      "licenses_management": "License management",
+      "account_settings": "Account settings",
+      "terms_and_conditions": "Terms and conditions",
+      "privacy_policy": "Privacy Policy",
+      "audit": "Activity log"
+    },
+    "page_title": {
+      "dashboard": "Dashboard",
+      "users_management": "User management",
+      "trainings_management": "Training management",
+      "companies_management": "Company management",
+      "licenses_management": "License management",
+      "account_settings": "Account settings",
+      "terms_and_conditions": "Terms and conditions",
+      "privacy_policy": "Privacy Policy",
+      "audit": "Activity log",
+      "search": "Search",
+      "404": "Error 404. Page not found"
+    },
+    "profile": {
+      "account": "Account name",
+      "role": "Account type",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "company": "Company",
+      "title": "Job title",
+      "password": "Password",
+      "email": "Email",
+      "change_password": "Change password"
+    },
+    "company": {
+      "company_name": "Company name",
+      "license_start": "License start date",
+      "license_type": "License type",
+      "add_company": "Add company",
+      "edit_company": "Edit company"
+    },
+    "buttons": {
+      "add_user": "Add user",
+      "add_training": "Add training",
+      "add_company": "Add company",
+      "add_license": "Add license",
+      "add": "Add",
+      "edit": "Edit",
+      "delete": "Delete",
+      "change_password": "Change password",
+      "cancel": "Cancel",
+      "change": "Change",
+      "reset": "Reset",
+      "sent": "Sent"
+    },
+    "forms": {
+      "users": {
+        "add_title": "Add user",
+        "edit_title": "Edit user"
+      },
+      "trainings": {
+        "add_title": "Add training",
+        "edit_title": "Edit training",
+        "title": "Training title",
+        "description": "Training description",
+        "file": "File"
+      },
+      "licenses" : {
+        "add_title": "Add license",
+        "edit_title": "Edit license",
+        "title": "License title",
+        "description": "License description",
+        "validity": "Validity, days"
+      }
+    },
+    "tables": {
+      "users": {
+        "account_name": "Account name",
+        "account_type": "Account type",
+        "first_name": "First name",
+        "last_name": "Last name",
+        "title": "Job title",
+        "company_name": "Company name"
+      },
+      "trainings": {
+        "name": "Name",
+        "description": "Description",
+        "file": "File"
+      },
+      "licenses": {
+        "title": "Title",
+        "description": "Description",
+        "validity": "Validity, days"
+      },
+      "companies": {
+        "name": "Name",
+        "license_start": "License start",
+        "license_finish": "License expiration",
+        "license_title": "License title"
+      }
+    },
+    "confirmation": {
+      "user": {
+        "title": "Delete the user account",
+        "text": "Do you want to delete the user?",
+        "approve": "Delete",
+        "cancel": "Cancel",
+        "linkTitle": "Delete"
+      },
+      "training": {
+        "title": "Delete the training",
+        "text": "Do you want to delete the training?",
+        "approve": "Delete",
+        "cancel": "Cancel",
+        "linkTitle": "Delete"
+      },
+      "license": {
+        "title": "Delete the license",
+        "text": "Do you want to delete the license?",
+        "approve": "Delete",
+        "cancel": "Cancel",
+        "linkTitle": "Delete"
+      },
+      "company": {
+        "title": "Delete the company",
+        "text": "Do you want to delete the company?",
+        "approve": "Delete",
+        "cancel": "Cancel",
+        "linkTitle": "Delete"
+      }
+    },
+    "audit": {
+      "user_name": "Account name",
+      "event_title": "Event",
+      "event_description": "Description",
+      "event_created": "Date"
+    },
+    "auth": {
+      "logout": "Log out",
+      "login": "Log in",
+      "log_in": "Log In",
+      "sign_in": "Log In",
+      "sign_up": "Sign Up",
+      "name": "Name",
+      "password": "Password",
+      "email": "Email",
+      "registration": "Registration",
+      "current_password": "Current password",
+      "new_password": "New password",
+      "repeat_password": "Repeat password",
+      "reset_password": "Reset password",
+      "forgot_password": "Forgot password?",
+      "change_password_for_user": "Change password for user -",
+      "reset_password_confirm": "Set a new password"
+    },
+    "errors": {
+      "company_is_empty": "Enter a company name",
+      "date_is_empty": "Enter a date",
+      "type_is_empty": "Select a type",
+      "account_type_is_empty": "Select the account type",
+      "account_is_empty": "Enter the account name",
+      "password_is_empty": "Enter a password",
+      "password_must_be": "The password length",
+      "count_of_password": "Current password length",
+      "wrong_file_type": "Wrong file type",
+      "wrong_email": "Enter a valid email",
+      "wrong_current_password": "Wrong current password",
+      "login_is_required": "Enter a login",
+      "password_is_required": "Enter a password",
+      "current_password_is_empty": "Enter the current password",
+      "new_password_is_empty": "Enter a new password",
+      "repeat_password_is_wrong": "Passwords do not match",
+      "unauthorized": "Unauthorized",
+      "unauthorized_login": "Wrong login or password",
+      "current_account_name_is_exist": "Account name already exists",
+      "current_account_email_is_exist": "Email already exist",
+      "email_is_required": "Enter an email",
+      "email_is_not_valid": "Enter a valid email",
+      "name_is_required": "Enter a name",
+      "reset_email_is_not_exist": "Email does not exist",
+      "password_pattern": "Use 8 or more characters with a mix of lowercase and uppercase letters, numbers",
+      "error": "Error",
+      "user_not_exist": "User does not exist",
+      "training_title_is_empty": "Enter a training title",
+      "no_data": "No Data"
+    },
+    "success": {
+      "password_changed": "Password has been changed",
+      "user_created": "User has been created",
+      "user_deleted": "User has been deleted",
+      "user_updated": "User has been updated",
+      "training_created": "Training has been created",
+      "training_deleted": "Training has been deleted",
+      "training_updated": "Training has been updated",
+      "user_registered": "Successfully registered",
+      "email_has_been_sent": "Email has been sent"
+    }
+  }
+}

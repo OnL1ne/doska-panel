@@ -1,0 +1,119 @@
+<app-content-loader *ngIf="!contentLoaded"></app-content-loader>
+<table *ngIf="contentLoaded" class="table" [svData]="companies" #sv="svDataTable" [svRowsOnPage]="5" svSortBy="id" svSortOrder="desc">
+  <thead>
+  <tr>
+    <th *ngFor="let column of sortTableService.sortedColumns">
+      <sv-default-sorter by="{{ column.name }}" (click)="sortTableService.arrowsSwitchSort(column.name)">
+        {{ column.title | translate }}
+        <fa-icon [icon]="column.icon"></fa-icon>
+      </sv-default-sorter>
+    </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let company of sv.data">
+    <td><div class="truncateLongName" tooltip="{{ company.name }}">{{ company.name }}</div></td>
+    <td>{{ company.license_start }}</td>
+    <td>{{ company.license_finish }}</td>
+    <td><div class="truncateLongName" tooltip="{{ company.license.title }}">{{ company.license.title }}</div></td>
+    <td>
+      <div *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_UPDATE_COMPANY)" class="dropdown">
+        <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <fa-icon [icon]="faEllipsisH"></fa-icon>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_UPDATE_COMPANY)"
+             class="dropdown-item"
+             (click)="edit(company)">
+            {{ 'panel.buttons.edit' | translate }}
+          </a>
+          <app-confirmation
+            *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_DELETE_COMPANY)"
+            [title]="'panel.confirmation.company.title'"
+            [text]="'panel.confirmation.company.text'"
+            [approve]="'panel.confirmation.company.approve'"
+            [cancel]="'panel.confirmation.company.cancel'"
+            [linkTitle]="'panel.confirmation.company.linkTitle'"
+            (onConfirm)="delete($event, company)"
+          ></app-confirmation>
+        </div>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <td colspan="5">
+      <sv-bootstrap-paginator [rowsOnPageSet]="[5, 10, 25]"></sv-bootstrap-paginator>
+    </td>
+  </tr>
+  </tfoot>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="companyModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form class="form" [formGroup]="form" (ngSubmit)="onSubmitForm()">
+        <div class="modal-header">
+          <h5 *ngIf="!isEditMode" class="modal-title">{{ 'panel.company.add_company' | translate }}</h5>
+          <h5 *ngIf="isEditMode" class="modal-title">{{ 'panel.company.edit_company' | translate }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <span>{{ 'panel.company.company_name' | translate }} *</span>
+            <input type="text" formControlName="name" class="form-control" maxlength="100">
+            <div
+              *ngIf="form.get('name').invalid && form.get('name').touched"
+              class="validation"
+            >
+              <small *ngIf="form.get('name').errors.required">
+                {{ 'panel.errors.company_is_empty' | translate }}
+              </small>
+            </div>
+          </div>
+          <div class="form-group">
+            <span>{{ 'panel.company.license_start' | translate }} *</span>
+            <input type="date" formControlName="license_start" class="form-control" maxlength="100">
+            <div
+              *ngIf="form.get('license_start').invalid && form.get('license_start').touched"
+              class="validation"
+            >
+              <small *ngIf="form.get('license_start').errors.required">
+                {{ 'panel.errors.date_is_empty' | translate }}
+              </small>
+            </div>
+          </div>
+          <div class="form-group">
+            <span>{{ 'panel.company.license_type' | translate }} *</span>
+            <select formControlName="license_id" class="form-control" maxlength="100">
+              <option
+                *ngFor="let license of licenses"
+                [value]="license.id"
+              >
+                {{ license.title }}
+              </option>
+            </select>
+            <div
+              *ngIf="form.get('license_id').invalid && form.get('license_id').touched"
+              class="validation"
+            >
+              <small *ngIf="form.get('license_id').errors.required">
+                {{ 'panel.errors.type_is_empty' | translate }}
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" data-dismiss="modal" (click)="resetForm()">{{ 'panel.buttons.cancel' | translate }}</button>
+          <button *ngIf="!isEditMode" type="submit" class="btn btn-orange" [disabled]="form.invalid">{{ 'panel.buttons.add' | translate }}</button>
+          <button *ngIf="isEditMode" type="submit" class="btn btn-orange" [disabled]="form.invalid">{{ 'panel.buttons.edit' | translate }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

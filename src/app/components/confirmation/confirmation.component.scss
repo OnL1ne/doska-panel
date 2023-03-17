@@ -1,0 +1,12 @@
+@import '../../../assets/scss/abstracts/_variables';
+@import '../../../assets/scss/components/components_style';
+
+.modal-title {
+  border: none;
+  color: $color-blue;
+  padding: 15px 0;
+}
+
+.modal-text {
+  padding-bottom: 10px;
+}

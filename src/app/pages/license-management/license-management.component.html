@@ -1,0 +1,20 @@
+<div class="panel-content-inner">
+  <div class="panel-content-header">
+    <app-content-header [title]="'panel.page_title.licenses_management'"></app-content-header>
+  </div>
+  <div class="panel-content-body">
+    <app-licenses></app-licenses>
+  </div>
+  <div class="panel-content-footer">
+    <!-- Button trigger modal -->
+    <button *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_CREATE_LICENSE)"
+            type="button"
+            class="btn btn-orange mr-4"
+            data-toggle="modal"
+            data-target="#licenseModal"
+    >
+      {{ 'panel.buttons.add_license' | translate }}
+    </button>
+  </div>
+</div>
+

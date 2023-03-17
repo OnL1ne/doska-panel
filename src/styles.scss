@@ -1,0 +1,86 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'assets/scss/abstracts/variables';
+@import 'assets/scss/components/components_style';
+@import 'assets/scss/pages/pages_style';
+
+
+html {
+  min-height: 100%;
+}
+body {
+  min-height: 100%;
+  min-height: 100vh;
+  margin:0;
+  font-family: $ff-roboto !important;
+  width: 100%;
+  background-color: $color-grey;
+  font-size: 14px !important;
+}
+
+a {
+  color: $color-blue;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a.color-blue {
+  color: $color-blue !important;
+}
+
+h1 {
+  font-family: $ff-roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  display: flex;
+  color: $color-blue;
+}
+
+h2 {
+  font-family: $ff-roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 21px;
+  line-height: 25px;
+  display: flex;
+  color: $color-blue;
+}
+
+h3 {
+  font-family: $ff-roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  display: flex;
+  color: $color-black;
+}
+
+h4 {
+  font-family: $ff-roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: flex-end;
+  color: $color-black;
+}
+
+.modal-open {
+  padding: 0 !important;
+}
+
+.mt-8 {
+  margin-top: 8rem!important;
+}
+
+.mt-10 {
+  margin-top: 10rem!important;
+}
+
+button, button:focus {
+  outline: none !important;
+}

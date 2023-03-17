@@ -1,0 +1,15 @@
+<div class="panel-content-inner">
+  <div class="panel-content-header">
+    <app-content-header [title]="'panel.page_title.companies_management'"></app-content-header>
+  </div>
+  <div class="panel-content-body">
+    <app-companies></app-companies>
+  </div>
+  <div class="panel-content-footer">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-orange mr-4" data-toggle="modal" data-target="#companyModal">
+      {{ 'panel.buttons.add_company' | translate }}
+    </button>
+  </div>
+</div>
+

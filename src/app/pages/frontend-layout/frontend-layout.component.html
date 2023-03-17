@@ -1,0 +1,45 @@
+<div class="main-panel-block" xmlns="http://www.w3.org/1999/html">
+  <div class="panel-navigation"
+       [ngClass]="auth.getBurgerMenu ? 'toggle-on' : 'toggle-off'"
+       (click)="$event.stopPropagation()"
+  >
+    <div class="main-categories">
+      <div>
+        <a [routerLink]="'/'" (click)="fromLogo()" title="Mr-Ace"><img class="img-fluid logo" src="/assets/image/logox2.png"></a>
+
+        <div *ngFor="let category of categories"
+             class="{{ category.class }}"
+             [ngClass]="{'active': mainCategory.title === category.title}"
+             [routerLink]="category.link"
+             (click)="changeMainCategory(category.title, category.subTitle)"
+        >
+          <fa-icon [icon]="category.icon"></fa-icon>
+        </div>
+      </div>
+
+      <a (click)="auth.logout()" title="{{ 'panel.auth.logout' | translate }}" class="logout-link"><img class="img-fluid logo" src="/assets/image/logout.png"></a>
+    </div>
+    <div class="sub-categories">
+      <h2 class="w-100 main-category-title"> {{ mainCategory.title | translate}} </h2>
+      <ul class="subcategory-list">
+        <ng-container *ngFor="let category of filterSubCategory(mainCategory.title)">
+          <li *ngIf="category.permission === true"
+              [routerLink]="category.link"
+              [ngClass]="{'active': subCategory.title === category.title}"
+              (click)="changeSubCategory(category.title)"
+          >
+            <span class="icon"><fa-icon [icon]="category.icon"></fa-icon></span>
+            <span>{{ category?.title | translate }}</span>
+          </li>
+        </ng-container>
+      </ul>
+      <div *ngIf="auth.isLoggedIn()" class="nav-item logout">
+        <a routerLink="" (click)="auth.logout()" class="nav-link">{{ 'panel.auth.logout' | translate }}</a>
+      </div>
+    </div>
+  </div>
+  <div class="panel-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+

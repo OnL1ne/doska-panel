@@ -1,0 +1,38 @@
+<div class="panel-content-inner">
+  <div class="panel-content-header">
+    <app-content-header [title]="'panel.page_title.audit'"></app-content-header>
+  </div>
+  <div class="panel-content-body">
+    <app-content-loader *ngIf="!contentLoaded"></app-content-loader>
+    <table *ngIf="contentLoaded" class="table" [svData]="events" #sv="svDataTable" [svRowsOnPage]="15" svSortBy="id" svSortOrder="desc">
+      <thead>
+        <tr>
+          <th *ngFor="let column of sortTableService.sortedColumns">
+            <sv-default-sorter by="{{ column.name }}" (click)="sortTableService.arrowsSwitchSort(column.name)">
+              {{ column.title | translate }}
+              <fa-icon [icon]="column.icon"></fa-icon>
+            </sv-default-sorter>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of sv.data">
+          <td><div class="truncateLongName" tooltip="{{ event.user.name }}">{{ event.user.name }}</div></td>
+          <td><div class="truncateLongName" tooltip="{{ event.title }}">{{ event.title }}</div></td>
+          <td><div class="truncateLongTexts" tooltip="{{ event.description }}">{{ event.description }}</div></td>
+          <td>{{ event.created_at }}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4">
+            <sv-bootstrap-paginator [rowsOnPageSet]="[15, 25]"></sv-bootstrap-paginator>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="panel-content-footer">
+  </div>
+</div>
+

@@ -1,0 +1,128 @@
+<app-content-loader *ngIf="!contentLoaded"></app-content-loader>
+<table *ngIf="contentLoaded && this.searchTableService.getData().length > 0" class="table" [svData]="this.searchTableService.getData()" #sv="svDataTable" [svRowsOnPage]="10" svSortBy="id" svSortOrder="desc">
+  <thead>
+  <tr>
+    <th *ngFor="let column of sortTableService.sortedColumns">
+      <sv-default-sorter by="{{ column.name }}" (click)="sortTableService.arrowsSwitchSort(column.name)">
+        {{ column.title | translate }}
+        <fa-icon [icon]="column.icon"></fa-icon>
+      </sv-default-sorter>
+    </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let training of sv.data">
+    <td>
+      <div class="truncateLongName" tooltip="{{ training.title }}">
+        {{ training.title }}
+      </div>
+    </td>
+    <td>
+      <div class="truncateLongTexts" tooltip="{{ training.description }}">
+        {{ training.description }}
+      </div>
+    </td>
+    <td><a class="download-training" (click)="download(training)">{{ training.file_name }}</a></td>
+    <td>
+      <div *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_UPDATE_TRAINING)" class="dropdown">
+        <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <fa-icon [icon]="faEllipsisH"></fa-icon>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_UPDATE_TRAINING)"
+             class="dropdown-item"
+             (click)="edit(training)">
+            {{ 'panel.buttons.edit' | translate }}
+          </a>
+          <app-confirmation
+            *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_DELETE_TRAINING)"
+            [title]="'panel.confirmation.training.title'"
+            [text]="'panel.confirmation.training.text'"
+            [approve]="'panel.confirmation.training.approve'"
+            [cancel]="'panel.confirmation.training.cancel'"
+            [linkTitle]="'panel.confirmation.training.linkTitle'"
+            (onConfirm)="delete($event, training)"
+          ></app-confirmation>
+        </div>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <td colspan="4">
+      <sv-bootstrap-paginator [rowsOnPageSet]="[10, 25]"></sv-bootstrap-paginator>
+    </td>
+  </tr>
+  </tfoot>
+</table>
+
+<div
+  *ngIf="contentLoaded && this.checkTrainings()"
+  class="noData"
+>
+  {{ 'panel.errors.no_data' | translate}}
+</div>
+
+<!-- Modal -->
+<div *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_CREATE_TRAINING)"
+     class="modal fade" id="trainingModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form class="form" [formGroup]="form" (ngSubmit)="onSubmitForm()">
+        <div class="modal-header">
+          <h5 *ngIf="!isEditMode" class="modal-title">{{ 'panel.forms.trainings.add_title' | translate }}</h5>
+          <h5 *ngIf="isEditMode" class="modal-title">{{ 'panel.forms.trainings.edit_title' | translate }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <span>{{ 'panel.forms.trainings.title' | translate }} *</span>
+            <input type="text" formControlName="title" class="form-control" maxlength="120">
+            <div
+              *ngIf="form.get('title').invalid && form.get('title').touched"
+              class="validation"
+            >
+              <small *ngIf="form.get('title').errors.required">
+                {{ 'panel.errors.training_title_is_empty' | translate}}
+              </small>
+            </div>
+          </div>
+          <div class="form-group">
+            <span>{{ 'panel.forms.trainings.description' | translate }}</span>
+            <label>
+              <textarea formControlName="description" class="form-control" rows="5" cols="50" maxlength="255"></textarea>
+            </label>
+          </div>
+          <div *ngIf="!isEditMode" class="form-group">
+            <span>{{ 'panel.forms.trainings.file' | translate }} *</span>
+            <app-file-upload formControlName="file"></app-file-upload>
+            <div
+              *ngIf="form.get('file').dirty && form.get('file').invalid"
+              class="validation"
+            >
+              <small>
+                {{ 'panel.errors.wrong_file_type' | translate }}
+              </small>
+            </div>
+          </div>
+          <alert type="danger" *ngFor="let error of systemMessages.getServerErrors()">
+            {{ error | translate }}
+          </alert>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" data-dismiss="modal" (click)="resetForm()">{{ 'panel.buttons.cancel' | translate }}</button>
+          <button *ngIf="!isEditMode" type="submit" class="btn btn-orange" [disabled]="form.invalid">{{ 'panel.buttons.add' | translate }}</button>
+          <button *ngIf="isEditMode" type="submit" class="btn btn-orange" [disabled]="form.invalid">{{ 'panel.buttons.edit' | translate }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<alert type="success" *ngFor="let success of systemMessages.getServerSuccess()">
+  {{ success | translate }}
+</alert>

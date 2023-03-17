@@ -1,0 +1,25 @@
+<div class="panel-content-inner">
+  <div class="panel-content-header">
+    <app-content-header [title]="'panel.page_title.users_management'"></app-content-header>
+    <div class="mr-4 search-box">
+      <span class="mr-2">{{ 'panel.page_title.search' | translate}}</span>
+      <label>
+        <input type="text" class="form-control" (input)="searchTableService.filterData($event)">
+      </label>
+    </div>
+  </div>
+  <div class="panel-content-body">
+    <app-users></app-users>
+  </div>
+  <div class="panel-content-footer">
+    <button *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_CREATE_USER_ACCOUNT)"
+            type="button"
+            class="btn btn-orange mr-4"
+            data-toggle="modal"
+            data-target="#userModal"
+    >
+      {{ 'panel.buttons.add_user' | translate }}
+    </button>
+  </div>
+</div>
+

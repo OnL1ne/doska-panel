@@ -1,0 +1,8 @@
+@import '../../../assets/scss/abstracts/_variables';
+@import '../../../assets/scss/components/components_style';
+
+input.check-valid {
+  &.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+}

@@ -1,0 +1,95 @@
+<app-content-loader *ngIf="!contentLoaded"></app-content-loader>
+<table *ngIf="contentLoaded" class="table" [svData]="licenses" #sv="svDataTable" [svRowsOnPage]="5" svSortBy="id" svSortOrder="desc">
+  <thead>
+    <tr>
+      <th *ngFor="let column of sortTableService.sortedColumns">
+        <sv-default-sorter by="{{ column.name }}" (click)="sortTableService.arrowsSwitchSort(column.name)">
+          {{ column.title | translate }}
+          <fa-icon [icon]="column.icon"></fa-icon>
+        </sv-default-sorter>
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let license of sv.data">
+      <td>
+        <a (click)="edit(license)" class="edit">
+          <span *ngIf="license !== editLicense"> {{ license.title }}</span>
+          <input *ngIf="license === editLicense" [(ngModel)]="license.title" (blur)="update()" maxlength="100">
+        </a>
+      </td>
+      <td>
+        <a (click)="edit(license)" class="edit">
+          <span *ngIf="license !== editLicense"> {{ license.description }}</span>
+          <input *ngIf="license === editLicense" [(ngModel)]="license.description" (blur)="update()" maxlength="100">
+        </a>
+      </td>
+      <td>
+        <a (click)="edit(license)" class="edit">
+          <span *ngIf="license !== editLicense"> {{ license.validity }}</span>
+          <input *ngIf="license === editLicense" [(ngModel)]="license.validity" (blur)="update()" maxlength="100">
+        </a>
+      </td>
+      <td>
+        <div class="dropdown">
+          <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <fa-icon [icon]="faEllipsisH"></fa-icon>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <app-confirmation
+              *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_DELETE_LICENSE)"
+              [title]="'panel.confirmation.license.title'"
+              [text]="'panel.confirmation.license.text'"
+              [approve]="'panel.confirmation.license.approve'"
+              [cancel]="'panel.confirmation.license.cancel'"
+              [linkTitle]="'panel.confirmation.license.linkTitle'"
+              (onConfirm)="delete($event, license)"
+            ></app-confirmation>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="4">
+        <sv-bootstrap-paginator [rowsOnPageSet]="[5, 10, 25]"></sv-bootstrap-paginator>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="licenseModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ 'panel.forms.licenses.add_title' | translate }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <span>{{ 'panel.forms.licenses.title' | translate }}</span>
+            <input type="text" formControlName="title" class="form-control" maxlength="100">
+          </div>
+          <div class="form-group">
+            <span>{{ 'panel.forms.licenses.description' | translate }}</span>
+            <input type="text" formControlName="description" class="form-control" maxlength="100">
+          </div>
+          <div class="form-group">
+            <span>{{ 'panel.forms.licenses.validity' | translate }}</span>
+            <input type="number" formControlName="validity" class="form-control" maxlength="100">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" data-dismiss="modal">{{ 'panel.buttons.cancel' | translate }}</button>
+          <button type="submit" class="btn btn-orange" [disabled]="form.invalid">{{ 'panel.buttons.add' | translate }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

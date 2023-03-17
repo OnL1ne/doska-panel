@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-d-6 mt-8 mx-auto auth-block">
+      <div class="text-center mb-5">
+        <img class="w-50" src="../../../assets/image/auth-logo.png">
+      </div>
+      <form (submit)="submit(password.invalid, login.invalid)">
+        <h1 class="h3 mb-3 font-weight-normal">
+          {{ 'panel.auth.log_in' | translate }}
+        </h1>
+        <div class="form-group">
+          <input id="login" type="text" class="form-control" name="login"
+                 required placeholder="{{ 'panel.auth.login' | translate }}"
+                 [(ngModel)]="credentials.login" #login="ngModel" maxlength="100"
+          >
+          <div *ngIf="login.invalid && (login.dirty || login.touched)" class="validation">
+            <small *ngIf="login.errors.required">
+              {{ 'panel.errors.login_is_required' | translate }}
+            </small>
+          </div>
+        </div>
+        <div class="form-group">
+          <input id="password" type="password" class="form-control check-valid" name="password"
+                 placeholder="{{ 'panel.auth.password' | translate }}"
+                 required minlength="8" #password="ngModel"
+                 [(ngModel)]="credentials.password" maxlength="100"
+          >
+          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="validation">
+            <small *ngIf="password.errors.required">
+              {{ 'panel.errors.password_is_required' | translate }}
+            </small>
+            <small *ngIf="password.errors.minlength">
+              {{ 'panel.errors.password_must_be' | translate }}
+              {{ password.errors.minlength.actualLength }} /
+              {{ password.errors.minlength.requiredLength }}
+            </small>
+          </div>
+          <alert type="danger" *ngFor="let error of systemMessages.getServerErrors()">
+            {{ error | translate }}
+          </alert>
+        </div>
+        <button class="btn btn-orange btn-block" [disabled]="loginLoad">
+          <span *ngIf="loginLoad" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          {{ 'panel.auth.sign_in' | translate }}
+        </button>
+      </form>
+      <div class="auth-menu">
+        <a routerLink="/registration">{{ 'panel.auth.registration' | translate }}</a>
+        <a routerLink="/forgot_password">{{ 'panel.auth.forgot_password' | translate }}</a>
+      </div>
+    </div>
+  </div>
+</div>

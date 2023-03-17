@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row">
+    <div class="col-d-8 mt-8 mx-auto auth-block">
+      <form (submit)="register(name.invalid, email.invalid, password.invalid)">
+        <div class="text-center mb-5">
+          <img class="w-50" src="../../../assets/image/auth-logo.png">
+        </div>
+        <h1 class="h3 mb-3 font-weight-normal">
+          {{ 'panel.auth.registration' | translate }}
+        </h1>
+        <div class="form-group">
+          <input id="name" type="text" class="form-control" name="name" autocomplete="off"
+                 placeholder="{{ 'panel.auth.name' | translate }}" maxlength="100"
+                 [(ngModel)]="credentials.name" required #name="ngModel"
+          >
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="validation">
+            <small *ngIf="name.errors.required">
+              {{ 'panel.errors.name_is_required' | translate }}
+            </small>
+          </div>
+        </div>
+        <div class="form-group">
+          <input id="email" type="email" class="form-control" name="email" autocomplete="off"
+                 placeholder="{{ 'panel.auth.email' | translate }}"
+                 [(ngModel)]="credentials.email" required maxlength="100"
+                 #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          >
+          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="validation">
+            <small *ngIf="email.errors.required">
+              {{ 'panel.errors.email_is_required' | translate }}
+            </small>
+            <small *ngIf="email.errors.pattern">
+              {{ 'panel.errors.email_is_not_valid' | translate }}
+            </small>
+          </div>
+        </div>
+        <div class="form-group">
+          <input id="password" type="password" class="form-control check-valid" name="password" autocomplete="off"
+                 placeholder="{{ 'panel.auth.password' | translate }}"
+                 required minlength="8" #password="ngModel"
+                 [(ngModel)]="credentials.password" maxlength="100"
+          >
+          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="validation">
+            <small *ngIf="password.errors.required">
+              {{ 'panel.errors.password_is_required' | translate }}
+            </small>
+            <small *ngIf="password.errors.minlength">
+              {{ 'panel.errors.password_must_be' | translate }}
+              {{ password.errors.minlength.actualLength }} /
+              {{ password.errors.minlength.requiredLength }}
+            </small>
+          </div>
+        </div>
+        <alert type="danger" *ngFor="let error of systemMessages.getServerErrors()">
+          {{ error | translate }}
+        </alert>
+        <button class="btn btn-orange btn-block" [disabled]="registerLoad">
+          <span *ngIf="registerLoad" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          {{ 'panel.auth.sign_up' | translate }}
+        </button>
+      </form>
+      <div class="auth-menu">
+        <a routerLink="/login">{{ 'panel.auth.login' | translate }}</a>
+      </div>
+    </div>
+  </div>
+  <alert type="success" *ngFor="let success of systemMessages.getServerSuccess()">
+    {{ success | translate }}
+  </alert>
+</div>

@@ -1,0 +1,13 @@
+@import '../../../assets/scss/abstracts/_variables';
+@import '../../../assets/scss/components/components_style';
+
+:host {
+  font-size: 14px;
+}
+.edit {
+  color: $color-blue;
+  cursor: pointer;
+}
+.download-training {
+  color: $color-blue;
+}

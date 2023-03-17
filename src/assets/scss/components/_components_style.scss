@@ -1,0 +1,244 @@
+@import '../abstracts/variables';
+
+.modal-dialog {
+  margin: 16.75rem auto !important;
+}
+
+.btn-orange {
+  background-color: $color-orange;
+  border-color: $color-orange;
+  color: $color-white !important;
+  border-radius: 3px;
+  outline: none;
+
+  &:hover {
+    background: linear-gradient(180deg, $color-orange 0%, #FB0000 100%);
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.page-item.active .page-link {
+  background-color: $color-orange;
+  border-color: $color-orange;
+}
+
+.btn-cancel {
+  border: 2px solid $color-orange;
+  box-sizing: border-box;
+  border-radius: 4px;
+  color: $color-dark-grey;
+
+  &:hover {
+    background: $color-light-grey;
+    color: $color-blue;
+  }
+
+  &:focus {
+    background: $color-orange;
+    color: $color-white;
+    box-shadow: none;
+  }
+}
+
+.btn-dropdown {
+  background: $color-white;
+  border: 1px solid $color-border;
+  box-sizing: border-box;
+  border-radius: 3px;
+  color: $color-dark-grey;
+  font-size: 18px;
+  height: 34px;
+  line-height: 1;
+  display: table-cell;
+  vertical-align: middle;
+
+  &:hover {
+    background: #858585;
+    color: $color-white;
+  }
+
+  &:focus {
+    background: $color-blue;
+    color: $color-white;
+    box-shadow: none;
+  }
+}
+
+.dropdown-menu {
+  background: $color-light-grey;
+  padding: 0;
+  border: 1px solid $color-border;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  a.dropdown-item {
+    padding-bottom: 10px;
+    padding-top: 10px;
+
+    &:hover {
+      background: $color-white;
+      color: $color-blue;
+    }
+  }
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: transparent !important;
+}
+
+div.modal-dialog:not(.modal-sm) {
+  margin: 5rem auto !important;
+
+  div.modal-content {
+    padding: 0 22px;
+
+    form {
+      div.modal-header {
+        border: none;
+        color: $color-blue;
+        padding: 20px 0 20px 15px;
+      }
+
+      div.modal-body {
+        div.form-group {
+          margin: 0;
+          min-height: 100px;
+          span {
+            display: block;
+            margin-bottom: 15px;
+            color: $color-blue;
+          }
+          input {
+            font-size: 14px;
+          }
+          input.check-valid {
+            &.ng-invalid.ng-touched {
+              border: 1px solid $color-validation;
+            }
+
+            &.ng-valid.ng-touched {
+              border: 1px solid $color-validation-checked;
+            }
+          }
+        }
+      }
+
+      div.modal-footer {
+
+      }
+    }
+  }
+}
+
+.validation {
+  color: $color-validation;
+}
+
+.validation-checked {
+  color: $color-validation-checked;
+}
+
+table.table {
+  td, th {
+    border: none;
+  }
+
+  thead, tbody {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+    td, th {
+      vertical-align: middle;
+      padding: 8px 15px !important;
+      background-color: $color-white;
+    }
+    th {
+      color: $color-blue;
+      border-bottom: none !important;
+      font-size: 13px;
+    }
+  }
+}
+table.dataTable {
+  tbody tr {
+    background: transparent !important;
+  }
+  &.no-footer {
+    border: none !important;
+  }
+}
+.dataTables_length {
+  margin: 10px 0 0 15px;
+}
+.dataTables_filter {
+  margin: 10px 15px 0 0;
+  input {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+  }
+  input:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  }
+}
+.dataTables_info {
+  margin-left: 15px;
+}
+.dataTables_wrapper {
+  .dataTables_paginate {
+    margin-right: 15px;
+    .paginate_button {
+      &.current {
+        background: #FF5B15 !important;
+        border-color: #FF5B15 !important;
+        color: #fff !important;
+        border-radius: 3px !important;
+        outline: none !important;
+        &:hover {
+          color: #fff !important;
+        }
+      }
+    }
+  }
+}
+
+.truncateLongTexts {
+  max-width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @media (max-width: $mobile-screen) {
+    max-width: 200px;
+  }
+}
+
+.truncateLongName {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @media (max-width: $mobile-screen) {
+    max-width: 100px;
+  }
+}
+
+.noData {
+  width: 100%;
+  background-color: $color-white;
+  font-size: 30px;
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+}
+
+

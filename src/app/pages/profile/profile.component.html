@@ -1,0 +1,129 @@
+<app-content-loader *ngIf="!contentLoaded"></app-content-loader>
+<div class="panel-content-inner" *ngIf="contentLoaded">
+  <div class="panel-content-header">
+    <app-content-header [title]="'panel.page_title.account_settings'"></app-content-header>
+  </div>
+  <div class="panel-content-body">
+    <div class="content-wrapper">
+      <table class="table col-md-8 mx-auto text-left mt-3">
+        <tr>
+          <td>{{ 'panel.profile.account' | translate }}</td>
+          <td>{{ user?.name }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'panel.profile.role' | translate }}</td>
+          <td>{{ user?.role.name }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'panel.profile.email' | translate }}</td>
+          <td>{{ user?.email }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'panel.profile.first_name' | translate }}</td>
+          <td>{{ user?.detail?.first_name }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'panel.profile.last_name' | translate }}</td>
+          <td>{{ user?.detail?.last_name }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'panel.profile.title' | translate }}</td>
+          <td>{{ user?.detail?.title }}</td>
+        </tr>
+        <tr>
+          <td>{{ 'panel.profile.change_password' | translate }}</td>
+          <td>
+            <a class="color-blue" (click)="openPasswordForm()">
+              {{ 'panel.buttons.change_password' | translate }}
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form class="form" [formGroup]="form" (ngSubmit)="update()">
+            <div class="modal-header">
+              <h5 class="modal-title">{{ 'panel.forms.users.edit_title' | translate }}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <span>{{ 'panel.profile.email' | translate }} *</span>
+                    <input id="email" type="email" class="form-control" name="email"
+                           formControlName="email" [tabIndex]="3" required maxlength="100"
+                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                    >
+                    <div *ngIf="form.get('email').invalid && (form.get('email').dirty || form.get('email').touched)" class="validation">
+                      <small *ngIf="form.get('email').errors.required">
+                        {{ 'panel.errors.email_is_required' | translate }}
+                      </small>
+                      <small *ngIf="form.get('email').errors.pattern">
+                        {{ 'panel.errors.email_is_not_valid' | translate }}
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <span>{{ 'panel.profile.first_name' | translate }}</span>
+                    <input type="text" formControlName="first_name" class="form-control" [tabIndex]="3" maxlength="100">
+                  </div>
+                  <div class="form-group">
+                    <span>{{ 'panel.profile.title' | translate }}</span>
+                    <input type="text" formControlName="title" class="form-control" [tabIndex]="5" maxlength="100">
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <span>{{ 'panel.profile.account' | translate }} *</span>
+                    <input type="text" formControlName="name" class="form-control" [tabIndex]="2" maxlength="100">
+                    <div
+                      *ngIf="form.get('name').invalid && form.get('name').touched"
+                      class="validation"
+                    >
+                      <small *ngIf="form.get('name').errors.required">
+                        {{ 'panel.errors.account_is_empty' | translate }}
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <span>{{ 'panel.profile.last_name' | translate }}</span>
+                    <input type="text" formControlName="last_name" class="form-control" [tabIndex]="4" maxlength="100">
+                  </div>
+                </div>
+              </div>
+              <alert type="danger" *ngFor="let error of systemMessages.getServerErrors()">
+                {{ error | translate}}
+              </alert>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-cancel" data-dismiss="modal" (click)="resetForm()">{{ 'panel.buttons.cancel' | translate }}</button>
+              <button type="submit" class="btn btn-orange" [tabIndex]="7" [disabled]="form.invalid">{{ 'panel.buttons.edit' | translate }}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <app-change-password [user]="user"></app-change-password>
+
+    <alert type="success" *ngFor="let success of systemMessages.getServerSuccess()">
+      {{ success | translate }}
+    </alert>
+  </div>
+  <div class="panel-content-footer">
+    <button (click)="edit(user)"
+            type="button"
+            class="btn btn-orange mr-4"
+            data-toggle="modal"
+            data-target="#userModal"
+    >
+      {{ 'panel.buttons.edit' | translate }}
+    </button>
+  </div>
+</div>

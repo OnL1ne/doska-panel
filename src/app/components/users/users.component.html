@@ -1,0 +1,193 @@
+<app-content-loader *ngIf="!contentLoaded"></app-content-loader>
+<table *ngIf="contentLoaded && (this.searchTableService.getData().length > 0)" class="table" [svData]="this.searchTableService.getData()" #sv="svDataTable" [svRowsOnPage]="5" svSortBy="id" svSortOrder="desc">
+  <thead>
+  <tr>
+    <th *ngFor="let column of sortTableService.sortedColumns">
+      <sv-default-sorter by="{{ column.name }}" (click)="sortTableService.arrowsSwitchSort(column.name)">
+        {{ column.title | translate }}
+        <fa-icon [icon]="column.icon"></fa-icon>
+      </sv-default-sorter>
+    </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of sv.data">
+    <td><div class="truncateLongName" tooltip="{{ user.role?.name }}">{{ user.role?.name }}</div></td>
+    <td><div class="truncateLongName" tooltip="{{ user.detail?.first_name }}">{{ user.detail?.first_name }}</div></td>
+    <td><div class="truncateLongName" tooltip="{{ user.detail?.last_name }}">{{ user.detail?.last_name }}</div></td>
+    <td><div class="truncateLongName" tooltip="{{ user.name }}">{{ user.name }}</div></td>
+    <td><div class="truncateLongName" tooltip="{{ user.detail?.title }}">{{ user.detail?.title }}</div></td>
+    <td *ngIf="loggedUser.role_name === roleAdmin"><div class="truncateLongName" tooltip="{{ user.company?.name }}">{{ user.company?.name }}</div></td>
+    <td>
+      <div class="dropdown">
+        <button class="btn btn-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <fa-icon [icon]="faEllipsisH"></fa-icon>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_UPDATE_USER_ACCOUNT)"
+             class="dropdown-item"
+             (click)="edit(user)">
+            {{ 'panel.buttons.edit' | translate }}
+          </a>
+          <a *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_CHANGE_PASSWORD)"
+             class="dropdown-item"
+             (click)="openPasswordForm(user)">
+            {{ 'panel.buttons.change_password' | translate }}
+          </a>
+          <app-confirmation
+            *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_DELETE_USER_ACCOUNT)"
+            [title]="'panel.confirmation.user.title'"
+            [text]="'panel.confirmation.user.text'"
+            [approve]="'panel.confirmation.user.approve'"
+            [cancel]="'panel.confirmation.user.cancel'"
+            [linkTitle]="'panel.confirmation.user.linkTitle'"
+            (onConfirm)="delete($event, user)"
+          ></app-confirmation>
+        </div>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <td [colSpan]="loggedUser.role_name === roleAdmin ? 7 : 6">
+      <sv-bootstrap-paginator [rowsOnPageSet]="[5, 10]"></sv-bootstrap-paginator>
+    </td>
+  </tr>
+  </tfoot>
+</table>
+
+<div
+  *ngIf="contentLoaded && this.checkUsers()"
+  class="noData"
+>
+  {{ 'panel.errors.no_data' | translate}}
+</div>
+
+<!-- Modal -->
+<div *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_CREATE_USER_ACCOUNT)"
+     class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form class="form" [formGroup]="form" (ngSubmit)="onSubmitForm()">
+        <div class="modal-header">
+          <h5 *ngIf="!isEditMode" class="modal-title">{{ 'panel.forms.users.add_title' | translate }}</h5>
+          <h5 *ngIf="isEditMode" class="modal-title">{{ 'panel.forms.users.edit_title' | translate }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group" *ngIf="loggedUser.role_name === roleAdmin">
+                <span>{{ 'panel.profile.company' | translate }} *</span>
+                <select formControlName="company_id" class="form-control" [tabIndex]="1">
+                  <option
+                    *ngFor="let company of companies"
+                    [value]="company.id"
+                  >
+                    {{ company.name }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="form.get('company_id').invalid && form.get('company_id').touched"
+                  class="validation"
+                >
+                  <small *ngIf="form.get('company_id').errors.required">
+                    {{ 'panel.errors.company_is_empty' | translate }}
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="col-6"></div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <span>{{ 'panel.profile.role' | translate }} *</span>
+                <select formControlName="role_id" class="form-control check-valid" [tabIndex]="2">
+                  <option
+                    *ngFor="let role of roles"
+                    [value]="role.id"
+                  >
+                    {{ role.name }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="form.get('role_id').invalid && form.get('role_id').touched"
+                  class="validation"
+                >
+                  <small *ngIf="form.get('role_id').errors.required">
+                    {{ 'panel.errors.account_type_is_empty' | translate }}
+                  </small>
+                </div>
+              </div>
+              <div class="form-group">
+                <span>{{ 'panel.profile.first_name' | translate }}</span>
+                <input type="text" formControlName="first_name" class="form-control" [tabIndex]="3" maxlength="30">
+              </div>
+              <div class="form-group">
+                <span>{{ 'panel.profile.title' | translate }}</span>
+                <input type="text" formControlName="title" class="form-control" [tabIndex]="5" maxlength="30">
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <span>{{ 'panel.profile.account' | translate }} *</span>
+                <input type="text" formControlName="name" class="form-control" [tabIndex]="2" maxlength="40">
+                <div
+                  *ngIf="form.get('name').invalid && form.get('name').touched"
+                  class="validation"
+                >
+                  <small *ngIf="form.get('name').errors.required">
+                    {{ 'panel.errors.account_is_empty' | translate }}
+                  </small>
+                </div>
+              </div>
+              <div class="form-group">
+                <span>{{ 'panel.profile.last_name' | translate }}</span>
+                <input type="text" formControlName="last_name" class="form-control" [tabIndex]="4" maxlength="30">
+              </div>
+              <div *ngIf="!isEditMode" class="form-group">
+                <span>{{ 'panel.profile.password' | translate }} *</span>
+                <input type="text" formControlName="password" class="form-control check-valid" [tabIndex]="6" maxlength="40">
+                <div
+                  *ngIf="form.get('password').invalid && form.get('password').touched"
+                  class="validation"
+                >
+                  <small *ngIf="form.get('password').errors.required">
+                    {{ 'panel.errors.password_is_empty' | translate }}
+                  </small>
+                  <small *ngIf="form.get('password').errors.minlength">
+                    {{ 'panel.errors.password_must_be' | translate }}
+                    {{ form.get('password').errors.minlength.actualLength }} /
+                    {{ form.get('password').errors.minlength.requiredLength }}
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <alert type="danger" *ngFor="let error of systemMessages.getServerErrors()">
+            {{ error | translate}}
+          </alert>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-cancel" data-dismiss="modal" (click)="resetForm()">{{ 'panel.buttons.cancel' | translate }}</button>
+          <button *ngIf="!isEditMode" type="submit" class="btn btn-orange" [tabIndex]="7" [disabled]="form.invalid">{{ 'panel.buttons.add' | translate }}</button>
+          <button *ngIf="isEditMode" type="submit" class="btn btn-orange" [tabIndex]="7">{{ 'panel.buttons.edit' | translate }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-change-password
+  [user]="editUser"
+  *ngIf="this.permissions.checkPermission(this.permissions.PERMISSION_CHANGE_PASSWORD)"
+></app-change-password>
+
+<alert type="success" *ngFor="let success of systemMessages.getServerSuccess()">
+  {{ success | translate }}
+</alert>
