@@ -32,7 +32,7 @@
     "@rxweb/reactive-form-validators": "^2.0.0-rc2",
     "@types/file-saver": "^2.0.1",
     "@types/lodash": "^4.14.150",
-    "angular-datatables": "^8.1.0",
+    "angular-datatables": "^15.0.0",
     "bootstrap": "^4.4.1",
     "datatables.net": "^1.10.21",
     "datatables.net-dt": "^1.10.21",
