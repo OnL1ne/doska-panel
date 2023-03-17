@@ -7,7 +7,7 @@ import {catchError, filter, map, tap} from "rxjs/operators";
 import {Training} from "src/app/models/training.model";
 import {HttpErrorHandler, HandlerError} from "./http-error-handler.services";
 import {environment} from "../../environments/environment";
-import {FormControl} from "@angular/forms";
+import {UntypedFormControl} from "@angular/forms";
 
 @Injectable()
 export class TrainingsService {
@@ -76,7 +76,7 @@ export class TrainingsService {
     });
   }
 
-  public requiredFileType(control:FormControl) {
+  public requiredFileType(control:UntypedFormControl) {
     const types = ['png', 'jpg'];
     const file = control.value;
     if (file) {

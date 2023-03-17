@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PermissionsService} from "../../services/permissions.service";
 import {UsersService} from "../../services/users.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {SuccessResult, User} from "../../models/user.model";
 import {RxwebValidators} from "@rxweb/reactive-form-validators";
 import {SystemMessagesService} from "../../services/system-messages";
@@ -13,7 +13,7 @@ declare var $: any;
   styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent implements OnInit {
-  public passwordForm: FormGroup;
+  public passwordForm: UntypedFormGroup;
 
   @Input()
   public user: User;
@@ -32,16 +32,16 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   public initForm() {
-    this.passwordForm = new FormGroup({
-      current_password: new FormControl(null, [
+    this.passwordForm = new UntypedFormGroup({
+      current_password: new UntypedFormControl(null, [
         Validators.required,
         Validators.minLength(8),
       ]),
-      new_password: new FormControl(null, [
+      new_password: new UntypedFormControl(null, [
         Validators.required,
         Validators.minLength(8),
       ]),
-      repeat_password: new FormControl(null, [
+      repeat_password: new UntypedFormControl(null, [
         Validators.required,
         Validators.minLength(8),
         RxwebValidators.compare({fieldName:'new_password'}),

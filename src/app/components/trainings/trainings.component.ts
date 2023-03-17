@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {TrainingsService} from "../../services/trainings.service";
 import {PermissionsService} from "../../services/permissions.service";
 import {Training} from "src/app/models/training.model";
@@ -22,7 +22,7 @@ export class TrainingsComponent implements OnInit {
   @ViewChild(FileUploadComponent)
   private fileUploadComponent: FileUploadComponent;
 
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public trainings: Training[];
   public editTraining: Training;
   private progress: number;
@@ -46,11 +46,11 @@ export class TrainingsComponent implements OnInit {
   }
 
   public initForm() {
-    this.form = new FormGroup({
-      title: new FormControl(null, [Validators.required]),
-      description: new FormControl(''),
-      file: new FormControl(null, [Validators.required, this.trainingsService.requiredFileType]),
-      editMode: new FormControl(false),
+    this.form = new UntypedFormGroup({
+      title: new UntypedFormControl(null, [Validators.required]),
+      description: new UntypedFormControl(''),
+      file: new UntypedFormControl(null, [Validators.required, this.trainingsService.requiredFileType]),
+      editMode: new UntypedFormControl(false),
     });
   }
 

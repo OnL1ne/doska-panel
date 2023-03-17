@@ -4,7 +4,7 @@ import {UsersService} from "../../services/users.service";
 import {User} from "../../models/user.model";
 import {PermissionsService} from "../../services/permissions.service";
 import {SystemMessagesService} from "../../services/system-messages";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 declare var $: any;
 
 @Component({
@@ -15,7 +15,7 @@ declare var $: any;
 export class ProfileComponent implements OnInit {
   public user: User;
   public editUser: User;
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public contentLoaded: boolean;
 
   constructor(
@@ -45,12 +45,12 @@ export class ProfileComponent implements OnInit {
   }
 
   public initForm() {
-    this.form = new FormGroup({
-      name: new FormControl(null,[Validators.required]),
-      email: new FormControl(null,[Validators.required]),
-      first_name: new FormControl(''),
-      last_name: new FormControl(''),
-      title: new FormControl(''),
+    this.form = new UntypedFormGroup({
+      name: new UntypedFormControl(null,[Validators.required]),
+      email: new UntypedFormControl(null,[Validators.required]),
+      first_name: new UntypedFormControl(''),
+      last_name: new UntypedFormControl(''),
+      title: new UntypedFormControl(''),
     });
   }
 

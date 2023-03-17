@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from "../../services/users.service";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { PermissionsService } from "../../services/permissions.service";
 import { AuthenticationService, UserDetails } from "../../services/authentication.service";
 import { CompaniesService } from "../../services/companies.service";
@@ -18,7 +18,7 @@ declare var $: any;
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public users: User[];
   public companies: Company[];
   public roles: Role[];
@@ -51,15 +51,15 @@ export class UsersComponent implements OnInit {
 
   public initForm() {
     const companyId = (this.loggedUser.role_name !== this.roleAdmin) ? this.loggedUser.company_id : null;
-    this.form = new FormGroup({
-      role_id: new FormControl(null, [Validators.required]),
-      company_id: new FormControl(companyId, [Validators.required]),
-      name: new FormControl(null,[Validators.required]),
-      password: new FormControl(null, [Validators.minLength(8), Validators.required]),
-      first_name: new FormControl(''),
-      last_name: new FormControl(''),
-      title: new FormControl(''),
-      editMode: new FormControl(false),
+    this.form = new UntypedFormGroup({
+      role_id: new UntypedFormControl(null, [Validators.required]),
+      company_id: new UntypedFormControl(companyId, [Validators.required]),
+      name: new UntypedFormControl(null,[Validators.required]),
+      password: new UntypedFormControl(null, [Validators.minLength(8), Validators.required]),
+      first_name: new UntypedFormControl(''),
+      last_name: new UntypedFormControl(''),
+      title: new UntypedFormControl(''),
+      editMode: new UntypedFormControl(false),
     });
   }
 

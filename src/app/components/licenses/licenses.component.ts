@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {PermissionsService} from "../../services/permissions.service";
 import {License} from "src/app/models/company.model";
 import {LicensesService} from "../../services/licenses.service";
@@ -15,7 +15,7 @@ declare var $: any;
 })
 export class LicensesComponent implements OnInit {
 
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public licenses: License[];
   public editLicense: License;
   public contentLoaded: boolean;
@@ -37,10 +37,10 @@ export class LicensesComponent implements OnInit {
   }
 
   public initForm() {
-    this.form = new FormGroup({
-      title: new FormControl(null, [Validators.required]),
-      description: new FormControl(''),
-      validity: new FormControl(null, [Validators.required])
+    this.form = new UntypedFormGroup({
+      title: new UntypedFormControl(null, [Validators.required]),
+      description: new UntypedFormControl(''),
+      validity: new UntypedFormControl(null, [Validators.required])
     });
   }
 
