@@ -19,7 +19,7 @@ declare var $: any;
   styleUrls: ['./trainings.component.scss'],
 })
 export class TrainingsComponent implements OnInit {
-  @ViewChild(FileUploadComponent, {static: false})
+  @ViewChild(FileUploadComponent)
   private fileUploadComponent: FileUploadComponent;
 
   public form: FormGroup;
