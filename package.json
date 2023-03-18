@@ -33,7 +33,7 @@
     "@types/file-saver": "^2.0.1",
     "@types/lodash": "^4.14.150",
     "angular-datatables": "^15.0.0",
-    "bootstrap": "^4.4.1",
+    "bootstrap": "^5.2.3",
     "datatables.net": "^1.10.21",
     "datatables.net-dt": "^1.10.21",
     "file-saver": "^2.0.5",
