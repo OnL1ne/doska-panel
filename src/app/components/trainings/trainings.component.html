@@ -1,18 +1,14 @@
 <app-content-loader *ngIf="!contentLoaded"></app-content-loader>
-<table *ngIf="contentLoaded && this.searchTableService.getData().length > 0" class="table" [svData]="this.searchTableService.getData()" #sv="svDataTable" [svRowsOnPage]="10" svSortBy="id" svSortOrder="desc">
+<table *ngIf="contentLoaded && this.searchTableService.getData().length > 0" class="table">
   <thead>
   <tr>
     <th *ngFor="let column of sortTableService.sortedColumns">
-      <sv-default-sorter by="{{ column.name }}" (click)="sortTableService.arrowsSwitchSort(column.name)">
-        {{ column.title | translate }}
-        <fa-icon [icon]="column.icon"></fa-icon>
-      </sv-default-sorter>
     </th>
     <th></th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let training of sv.data">
+  <tr *ngFor="let training of []">
     <td>
       <div class="truncateLongName" tooltip="{{ training.title }}">
         {{ training.title }}
@@ -52,7 +48,6 @@
   <tfoot>
   <tr>
     <td colspan="4">
-      <sv-bootstrap-paginator [rowsOnPageSet]="[10, 25]"></sv-bootstrap-paginator>
     </td>
   </tr>
   </tfoot>

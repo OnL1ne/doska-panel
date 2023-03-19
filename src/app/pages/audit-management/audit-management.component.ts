@@ -15,9 +15,9 @@ export class AuditManagementComponent implements OnInit {
   public contentLoaded: boolean;
 
   constructor(
-    private permissions: PermissionsService,
-    private usersService: UsersService,
-    private sortTableService: SortTableService,
+    public permissions: PermissionsService,
+    public usersService: UsersService,
+    public sortTableService: SortTableService,
   ) { }
 
   ngOnInit() {
@@ -33,7 +33,7 @@ export class AuditManagementComponent implements OnInit {
     });
   }
 
-  private initSortColumns() {
+  public initSortColumns() {
     this.sortTableService.sortedColumns = [
       {name:'user.name', title: 'panel.audit.user_name', icon: this.sortTableService.sortArrowDefault},
       {name:'title', title: 'panel.audit.event_title', icon: this.sortTableService.sortArrowDefault},

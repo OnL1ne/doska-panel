@@ -9,9 +9,9 @@ import {AuthenticationService} from "../services/authentication.service";
 @Injectable()
 export class PermissionResolver implements Resolve<any> {
   constructor(
-    private permissionService: PermissionsService,
-    private router: Router,
-    private auth: AuthenticationService
+    public permissionService: PermissionsService,
+    public router: Router,
+    public auth: AuthenticationService
   ) {}
 
   resolve(route: ActivatedRouteSnapshot):Observable<any> {

@@ -1,18 +1,14 @@
 <app-content-loader *ngIf="!contentLoaded"></app-content-loader>
-<table *ngIf="contentLoaded && (this.searchTableService.getData().length > 0)" class="table" [svData]="this.searchTableService.getData()" #sv="svDataTable" [svRowsOnPage]="5" svSortBy="id" svSortOrder="desc">
+<table *ngIf="contentLoaded && (this.searchTableService.getData().length > 0)" class="table">
   <thead>
   <tr>
     <th *ngFor="let column of sortTableService.sortedColumns">
-      <sv-default-sorter by="{{ column.name }}" (click)="sortTableService.arrowsSwitchSort(column.name)">
-        {{ column.title | translate }}
-        <fa-icon [icon]="column.icon"></fa-icon>
-      </sv-default-sorter>
     </th>
     <th></th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let user of sv.data">
+  <tr *ngFor="let user of []">
     <td><div class="truncateLongName" tooltip="{{ user.role?.name }}">{{ user.role?.name }}</div></td>
     <td><div class="truncateLongName" tooltip="{{ user.detail?.first_name }}">{{ user.detail?.first_name }}</div></td>
     <td><div class="truncateLongName" tooltip="{{ user.detail?.last_name }}">{{ user.detail?.last_name }}</div></td>
@@ -52,7 +48,6 @@
   <tfoot>
   <tr>
     <td [colSpan]="loggedUser.role_name === roleAdmin ? 7 : 6">
-      <sv-bootstrap-paginator [rowsOnPageSet]="[5, 10]"></sv-bootstrap-paginator>
     </td>
   </tr>
   </tfoot>

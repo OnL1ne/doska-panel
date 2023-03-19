@@ -20,10 +20,10 @@ export class ResetPasswordAcceptComponent implements OnInit {
   };
 
   constructor(
-    private auth: AuthenticationService,
-    private systemMessages: SystemMessagesService,
-    private route: ActivatedRoute,
-    private router: Router
+    public auth: AuthenticationService,
+    public systemMessages: SystemMessagesService,
+    public route: ActivatedRoute,
+    public router: Router
   ) {
     route.queryParams.subscribe(params => {
       this.credentials.token = params.token;

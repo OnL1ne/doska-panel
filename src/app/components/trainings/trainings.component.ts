@@ -20,21 +20,21 @@ declare var $: any;
 })
 export class TrainingsComponent implements OnInit {
   @ViewChild(FileUploadComponent)
-  private fileUploadComponent: FileUploadComponent;
+  public fileUploadComponent: FileUploadComponent;
 
   public form: UntypedFormGroup;
   public trainings: Training[];
   public editTraining: Training;
-  private progress: number;
+  public progress: number;
   public contentLoaded: boolean;
-  private faEllipsisH = faEllipsisH;
+  public faEllipsisH = faEllipsisH;
 
   constructor(
-    private trainingsService: TrainingsService,
-    private permissions: PermissionsService,
-    private systemMessages: SystemMessagesService,
-    private sortTableService: SortTableService,
-    private searchTableService: SearchTableService,
+    public trainingsService: TrainingsService,
+    public permissions: PermissionsService,
+    public systemMessages: SystemMessagesService,
+    public sortTableService: SortTableService,
+    public searchTableService: SearchTableService,
   ) {
     this.permissions.permissionRedirect(this.permissions.PERMISSION_VIEW_TRAININGS_LIST);
   }

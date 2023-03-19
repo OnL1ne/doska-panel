@@ -8,7 +8,7 @@ import {PermissionsService} from "../../services/permissions.service";
 })
 export class LicenseManagementComponent implements OnInit {
 
-  constructor(private permissions: PermissionsService) { }
+  constructor(public permissions: PermissionsService) { }
 
   ngOnInit() {
   }

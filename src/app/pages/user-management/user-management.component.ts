@@ -11,9 +11,9 @@ import {SearchTableService} from "../../services/search-table.service";
 export class UserManagementComponent implements OnInit {
 
   constructor(
-    private permissions: PermissionsService,
-    private auth: AuthenticationService,
-    private searchTableService: SearchTableService,
+    public permissions: PermissionsService,
+    public auth: AuthenticationService,
+    public searchTableService: SearchTableService,
   ) { }
 
   ngOnInit() {

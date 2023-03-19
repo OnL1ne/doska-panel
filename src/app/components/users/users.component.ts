@@ -26,16 +26,16 @@ export class UsersComponent implements OnInit {
   public loggedUser: UserDetails;
   public contentLoaded: boolean;
   protected roleAdmin = 'admin';
-  private faEllipsisH = faEllipsisH;
+  public faEllipsisH = faEllipsisH;
 
   constructor(
-    private usersService: UsersService,
-    private permissions: PermissionsService,
-    private companiesService: CompaniesService,
-    private systemMessages: SystemMessagesService,
-    private sortTableService: SortTableService,
+    public usersService: UsersService,
+    public permissions: PermissionsService,
+    public companiesService: CompaniesService,
+    public systemMessages: SystemMessagesService,
+    public sortTableService: SortTableService,
     public auth: AuthenticationService,
-    private searchTableService: SearchTableService,
+    public searchTableService: SearchTableService,
   ) {
     this.permissions.permissionRedirect(this.permissions.PERMISSION_VIEW_USERS_LIST);
     this.loggedUser = this.auth.getUserDetails();

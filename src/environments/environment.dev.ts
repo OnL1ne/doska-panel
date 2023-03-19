@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  API_ENDPOINT: 'http://api.mr-ace.program-ace.net/api/auth',
+  API_ENDPOINT: 'http://api.doska.org.ua/api/auth',
   BASE_PATH: "/",
   locales: ['en', 'ru'],
   defaultLocale: 'en',

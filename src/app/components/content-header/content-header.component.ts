@@ -13,7 +13,7 @@ export class ContentHeaderComponent implements OnInit {
   @Input() title: string;
 
   constructor(
-    private auth:AuthenticationService,
+    public auth:AuthenticationService,
   ) { }
 
   ngOnInit() {

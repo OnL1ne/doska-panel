@@ -10,8 +10,8 @@ import {SearchTableService} from "../../services/search-table.service";
 export class TrainingManagementComponent implements OnInit {
 
   constructor(
-    private permissions: PermissionsService,
-    private searchTableService: SearchTableService,
+    public permissions: PermissionsService,
+    public searchTableService: SearchTableService,
   ) { }
 
   ngOnInit() {

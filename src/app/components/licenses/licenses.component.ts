@@ -19,13 +19,13 @@ export class LicensesComponent implements OnInit {
   public licenses: License[];
   public editLicense: License;
   public contentLoaded: boolean;
-  private faEllipsisH = faEllipsisH;
+  public faEllipsisH = faEllipsisH;
 
   constructor(
-    private permissions: PermissionsService,
-    private licensesService: LicensesService,
-    private systemMessages: SystemMessagesService,
-    private sortTableService: SortTableService,
+    public permissions: PermissionsService,
+    public licensesService: LicensesService,
+    public systemMessages: SystemMessagesService,
+    public sortTableService: SortTableService,
   ) {
     this.permissions.permissionRedirect(this.permissions.PERMISSION_VIEW_LICENSES_LIST);
   }

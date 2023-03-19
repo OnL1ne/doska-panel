@@ -149,9 +149,9 @@ export class FrontendLayoutComponent implements OnInit {
   ];
 
   constructor(
-    private auth: AuthenticationService,
-    private router: Router,
-    private permission: PermissionsService,
+    public auth: AuthenticationService,
+    public router: Router,
+    public permission: PermissionsService,
   ) {}
 
   ngOnInit() {

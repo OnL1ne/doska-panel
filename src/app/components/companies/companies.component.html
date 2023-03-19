@@ -1,18 +1,14 @@
 <app-content-loader *ngIf="!contentLoaded"></app-content-loader>
-<table *ngIf="contentLoaded" class="table" [svData]="companies" #sv="svDataTable" [svRowsOnPage]="5" svSortBy="id" svSortOrder="desc">
+<table *ngIf="contentLoaded" class="table">
   <thead>
   <tr>
     <th *ngFor="let column of sortTableService.sortedColumns">
-      <sv-default-sorter by="{{ column.name }}" (click)="sortTableService.arrowsSwitchSort(column.name)">
-        {{ column.title | translate }}
-        <fa-icon [icon]="column.icon"></fa-icon>
-      </sv-default-sorter>
     </th>
     <th></th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let company of sv.data">
+  <tr *ngFor="let company of []">
     <td><div class="truncateLongName" tooltip="{{ company.name }}">{{ company.name }}</div></td>
     <td>{{ company.license_start }}</td>
     <td>{{ company.license_finish }}</td>
@@ -45,7 +41,6 @@
   <tfoot>
   <tr>
     <td colspan="5">
-      <sv-bootstrap-paginator [rowsOnPageSet]="[5, 10, 25]"></sv-bootstrap-paginator>
     </td>
   </tr>
   </tfoot>

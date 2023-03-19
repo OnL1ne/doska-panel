@@ -22,9 +22,9 @@ export class ChangePasswordComponent implements OnInit {
   public profile: boolean;
 
   constructor(
-    private permissions: PermissionsService,
-    private usersService: UsersService,
-    private systemMessages: SystemMessagesService,
+    public permissions: PermissionsService,
+    public usersService: UsersService,
+    public systemMessages: SystemMessagesService,
   ) {}
 
   ngOnInit() {
@@ -49,7 +49,7 @@ export class ChangePasswordComponent implements OnInit {
     });
   }
 
-  private resetForm() {
+  public resetForm() {
     this.passwordForm.reset();
     this.systemMessages.clearSystemMessages();
   }

@@ -19,10 +19,10 @@ export class ProfileComponent implements OnInit {
   public contentLoaded: boolean;
 
   constructor(
-    private auth: AuthenticationService,
-    private userService: UsersService,
-    private permissions: PermissionsService,
-    private systemMessages: SystemMessagesService,
+    public auth: AuthenticationService,
+    public userService: UsersService,
+    public permissions: PermissionsService,
+    public systemMessages: SystemMessagesService,
   ) {}
 
   ngOnInit() {
@@ -67,7 +67,7 @@ export class ProfileComponent implements OnInit {
     this.form.get('name').disable();
   }
 
-  private update() {
+  public update() {
     if (this.editUser) {
       let editUser: User = {...this.form.value} as User;
       this.userService.updateProfile(editUser).subscribe(user => {

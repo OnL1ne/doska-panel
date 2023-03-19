@@ -5,7 +5,6 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from "@angular/common
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpErrorHandler } from "./services/http-error-handler.services";
 import { RouterModule, Routes} from "@angular/router";
-import { DataTableModule } from 'ng-angular8-datatable';
 import { DataTablesModule } from 'angular-datatables';
 import { AlertModule } from "ngx-bootstrap/alert";
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -192,7 +191,6 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    DataTableModule,
     DataTablesModule,
     FontAwesomeModule,
     TooltipModule.forRoot(),

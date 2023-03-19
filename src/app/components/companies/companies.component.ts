@@ -20,13 +20,13 @@ export class CompaniesComponent implements OnInit {
   public companies: Company[];
   public editCompany: Company;
   public contentLoaded: boolean;
-  private faEllipsisH = faEllipsisH;
+  public faEllipsisH = faEllipsisH;
 
   constructor(
-    private permissions: PermissionsService,
-    private companiesService: CompaniesService,
-    private systemMessages: SystemMessagesService,
-    private sortTableService: SortTableService,
+    public permissions: PermissionsService,
+    public companiesService: CompaniesService,
+    public systemMessages: SystemMessagesService,
+    public sortTableService: SortTableService,
   ) {
     this.permissions.permissionRedirect(this.permissions.PERMISSION_VIEW_COMPANIES_LIST);
   }

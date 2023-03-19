@@ -9,7 +9,7 @@ import { environment } from "../environments/environment";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Mr-Ace';
+  title = 'Doska';
 
   constructor(
     public auth: AuthenticationService,
